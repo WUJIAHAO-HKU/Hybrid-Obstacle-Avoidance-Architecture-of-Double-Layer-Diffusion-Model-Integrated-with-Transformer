@@ -3,6 +3,19 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Large data / model directories (too large for GitHub, cache locally)
+data_public/
+data_public.tar.gz
+deps/isaacgym/
+deps/pybullet_ompl/ompl/build/
+data_trained_models/
+data_trajectories/
+
+# dynamic_mpd large model files (>100MB)
+dynamic_mpd/old_results/trained_diffusion_model.pth
+
+
+
 # C extensions
 *.so
 

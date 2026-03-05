@@ -22,7 +22,7 @@ if [ ! -d "$ISAACGYM_DIR" ]; then
   exit 1
 fi
 
-conda update -n base conda
+# conda update -n base conda
 
 conda env create -f environment.yml
 

@@ -1,0 +1,53 @@
+# 动态MPD配置文件
+
+# 环境设置
+environment:
+  type: "EnvSimple2DDynamic"
+  workspace_bounds: [-1.0, 1.0, -1.0, 1.0]  # [x_min, x_max, y_min, y_max]
+  
+# 静态障碍物 (继承自EnvSimple2D)
+static_obstacles:
+  use_original: true  # 使用原始EnvSimple2D的障碍物
+
+# 动态障碍物设置
+dynamic_obstacles:
+  num_obstacles: 3
+  radius_range: [0.08, 0.12]
+  velocity_range: [0.1, 0.3]
+  motion_types: ["linear", "circular", "random_walk"]
+  
+# 时空SDF设置
+spatiotemporal_sdf:
+  spatial_resolution: 0.01    # 空间分辨率 (米)
+  temporal_resolution: 0.1    # 时间分辨率 (秒)
+  time_horizon: 10.0          # 预测时间范围 (秒)
+  num_time_steps: 100         # 时间步数
+  safety_margin: 0.05         # 安全边距
+  
+# 障碍物预测器设置
+obstacle_predictor:
+  type: "linear"  # linear, kalman, diffusion
+  history_length: 10  # 历史观测步数
+  prediction_horizon: 100  # 预测步数
+  
+# 规划设置
+planning:
+  trajectory_duration: 10.0   # 轨迹持续时间 (秒)
+  num_trajectory_points: 128  # 轨迹点数
+  num_samples: 100            # 采样轨迹数量
+  
+# 引导设置  
+guidance:
+  use_spatiotemporal_collision: true
+  weights:
+    st_collision: 20.0        # 时空碰撞权重 (最高优先级)
+    static_collision: 10.0    # 静态碰撞权重
+    joint_limits: 1.0
+    velocity: 0.01
+    acceleration: 0.001
+    
+# 可视化设置
+visualization:
+  show_obstacle_predictions: true
+  show_st_sdf_slices: true
+  animation_fps: 30
